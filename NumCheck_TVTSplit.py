@@ -12,11 +12,14 @@ def Numcheck(image_dir, json_dir):
     print('json 개수: ', len(json_list))
     cnt = 0
     no_match = []
+    # bbox가 있는 이미지만을 저장할 폴더 생성
     if not os.path.exists(os.path.join(image_dir, 'bboximage')):
         os.makedirs(os.path.join(image_dir, 'bboximage'))
     for j in json_list:
+        # json 파일의 이름을 image 형식으로
         j2i = j[:-3] + 'jpg'
         if j2i in image_list:
+            # image가 image_dir에 있으면 bboximage 폴더로 이동
             if os.path.isfile(os.path.join(image_dir, j2i)) and not os.path.isfile(os.path.join(image_dir, 'bboximage', j2i)):
                 shutil.copy(os.path.join(image_dir, j2i), os.path.join(image_dir, 'bboximage', j2i))
             cnt += 1
@@ -28,6 +31,7 @@ def Numcheck(image_dir, json_dir):
 
 def TVTSplit(image_dir, json_dir):
     dest = input('split한 데이터셋을 저장할 경로: ')
+    # 폴더 생성
     if not os.path.exists(dest + '//train'):
         os.makedirs(dest + '//train')
         os.makedirs(dest + '//train//images')
@@ -43,9 +47,11 @@ def TVTSplit(image_dir, json_dir):
 
     json_list = os.listdir(json_dir)
     image_list = os.listdir(image_dir)
+    # train:valid:test = 7:2:1
     train_set, test_set = train_test_split(json_list, test_size=0.3, random_state=123)
     valid_set, test_set = train_test_split(test_set, test_size=0.4, random_state=123)
 
+    # json과 매칭되는 이미지 파일을 이동
     for tr in train_set:
         j2i = tr[:-3] + 'jpg'
         shutil.copy(os.path.join(json_dir, tr), dest + '//train//labels//' + tr)
