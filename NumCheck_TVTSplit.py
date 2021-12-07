@@ -12,14 +12,18 @@ def Numcheck(image_dir, json_dir):
     print('json 개수: ', len(json_list))
     cnt = 0
     no_match = []
+    if not os.path.exists(os.path.join(json_dir, 'bboximage')):
+        os.makedirs(os.path.join(json_dir, 'bboximage'))
     for j in json_list:
-        j2i = j[:-4] + 'jpg'
+        j2i = j[:-3] + 'jpg'
         if j2i in image_list:
+            if os.path.isfile(os.path.join(json_dir, 'bboximage', j2i)):
+                shutil.copy(os.path.join(image_dir, j2i), os.path.join(json_dir, 'bboximage', j2i))
             cnt += 1
         else:
             no_match.append(j)
     print('매칭 이미지, json 수: ', cnt)
-    print('매치 안되는 json, ', str(no_match))
+    print('매치 안되는 json: ', str(no_match))
 
 
 def TVTSplit(image_dir, json_dir):
