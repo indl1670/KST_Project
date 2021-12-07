@@ -31,5 +31,6 @@ for i in range(len(file_list_json)):
                         
                         # e['id'] : Image name, t['bbox'] : bounding box 좌표
                         f = open(filename, 'a')
-                        data = str(t['id']) + ',' + bbox_str + '\n'
+                        data = str(t['id']) + ' ,' + bbox_str + '\n'
+                        data = data.replace(',', "")
                         f.write(data)
