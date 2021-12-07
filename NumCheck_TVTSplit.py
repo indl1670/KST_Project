@@ -41,17 +41,17 @@ def TVTSplit(image_dir, json_dir):
     valid_set, test_set = train_test_split(test_set, test_size=0.4, random_state=1)
 
     for tr in train_set:
-        j2i = tr[:-4] + 'jpg'
+        j2i = tr[:-3] + 'jpg'
         shutil.copy(os.path.join(json_dir, tr), dest + '//train//labels//' + tr)
         if j2i in image_list:
             shutil.copy(os.path.join(image_dir, j2i), dest + '//train//images//' + j2i)
     for va in valid_set:
-        j2i = va[:-4] + 'jpg'
+        j2i = va[:-3] + 'jpg'
         shutil.copy(os.path.join(json_dir, va), dest + '//valid//labels//' + va)
         if j2i in image_list:
             shutil.copy(os.path.join(image_dir, j2i), dest + '//valid//images//' + j2i)
     for te in test_set:
-        j2i = te[:-4] + 'jpg'
+        j2i = te[:-3] + 'jpg'
         shutil.copy(os.path.join(json_dir, te), dest + '//test//labels//' + te)
         if j2i in image_list:
             shutil.copy(os.path.join(image_dir, j2i), dest + '//test//images//' + j2i)
