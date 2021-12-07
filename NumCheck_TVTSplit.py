@@ -43,8 +43,8 @@ def TVTSplit(image_dir, json_dir):
 
     json_list = os.listdir(json_dir)
     image_list = os.listdir(image_dir)
-    train_set, test_set = train_test_split(json_list, test_size=0.3, random_state=1)
-    valid_set, test_set = train_test_split(test_set, test_size=0.4, random_state=1)
+    train_set, test_set = train_test_split(json_list, test_size=0.3, random_state=123)
+    valid_set, test_set = train_test_split(test_set, test_size=0.4, random_state=123)
 
     for tr in train_set:
         j2i = tr[:-3] + 'jpg'
