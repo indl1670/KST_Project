@@ -7,7 +7,6 @@ import json
 
 case = 'datumaro'
 folder_name = '//result//'
-txt_folder = '//txt//'
 
 def json_extract(z, json_dir):
     nm = z[:-4]
@@ -26,7 +25,8 @@ def json_extract(z, json_dir):
 
 def jy(json_dir):
     path = json_dir + folder_name
-
+    if not os.path.exists(os.path.join(json_dir, 'txt')):
+        os.makedirs(os.path.join(json_dir, 'txt'))
     # json 파일 경로 리스트에 저장
     file_list = os.listdir(path)
     file_list_json = [file for file in file_list if file.endswith(".json")]
@@ -52,8 +52,11 @@ def jy(json_dir):
                             bbox_str = bbox_str.replace("[", "")
                             bbox_str = bbox_str.replace("]", "")
 
+                            with open(os.path.join(json_dir, 'txt', filename), 'w') as f:
+                                f.write('')
+
                             # e['id'] : Image name, t['bbox'] : bounding box 좌표
-                            f = open(os.path.join(json_dir, txt_folder, filename), 'a')
+                            f = open(os.path.join(json_dir, 'txt', filename), 'a')
 
                             # yolov5 annotation 형식에 맞추어 재설정
                             data = str(t['id']) + ' ,' + bbox_str + '\n'
