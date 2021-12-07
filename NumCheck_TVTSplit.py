@@ -12,13 +12,13 @@ def Numcheck(image_dir, json_dir):
     print('json 개수: ', len(json_list))
     cnt = 0
     no_match = []
-    if not os.path.exists(os.path.join(json_dir, 'bboximage')):
-        os.makedirs(os.path.join(json_dir, 'bboximage'))
+    if not os.path.exists(os.path.join(image_dir, 'bboximage')):
+        os.makedirs(os.path.join(image_dir, 'bboximage'))
     for j in json_list:
         j2i = j[:-3] + 'jpg'
         if j2i in image_list:
-            if os.path.isfile(os.path.join(json_dir, 'bboximage', j2i)):
-                shutil.copy(os.path.join(image_dir, j2i), os.path.join(json_dir, 'bboximage', j2i))
+            if os.path.isfile(os.path.join(image_dir, j2i)) and not os.path.isfile(os.path.join(image_dir, 'bboximage', j2i)):
+                shutil.copy(os.path.join(image_dir, j2i), os.path.join(image_dir, 'bboximage', j2i))
             cnt += 1
         else:
             no_match.append(j)
@@ -30,10 +30,16 @@ def TVTSplit(image_dir, json_dir):
     dest = input('split한 데이터셋을 저장할 경로: ')
     if not os.path.exists(dest + '//train'):
         os.makedirs(dest + '//train')
+        os.makedirs(dest + '//train//images')
+        os.makedirs(dest + '//train//labels')
     if not os.path.exists(dest + '//valid'):
         os.makedirs(dest + '//valid')
+        os.makedirs(dest + '//valid//images')
+        os.makedirs(dest + '//valid//labels')
     if not os.path.exists(dest + '//test'):
         os.makedirs(dest + '//test')
+        os.makedirs(dest + '//test//images')
+        os.makedirs(dest + '//test//labels')
 
     json_list = os.listdir(json_dir)
     image_list = os.listdir(image_dir)
