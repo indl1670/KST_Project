@@ -31,6 +31,8 @@ for i in range(len(file_list_json)):
                         
                         # e['id'] : Image name, t['bbox'] : bounding box 좌표
                         f = open(filename, 'a')
+                        
+                        # yolov5 annotation 형식에 맞추어 재설정
                         data = str(t['id']) + ' ,' + bbox_str + '\n'
                         data = data.replace(',', "")
                         f.write(data)
