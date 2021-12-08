@@ -25,14 +25,20 @@ for i in range(len(file_list_json)):
                         filename = e['id'] + '.txt'
                         
                         # 리스트를 str 형태로 변환하고, 가공
-                        bbox_str = str(t['bbox'])
+                        bbox_str = t["bbox"]
+                        
+                        # 가로 1920, 세로 1080
+                        bbox_str[0] = float(bbox_str[0])/1920
+                        bbox_str[1] = float(bbox_str[1])/1080
+                        bbox_str[2] = float(bbox_str[2])/1920
+                        bbox_str[3] = float(bbox_str[3])/1080
+                        
+                        bbox_str = str(bbox_str)
                         bbox_str = bbox_str.replace("[", "")
                         bbox_str = bbox_str.replace("]", "")
-                        
+                            
                         # e['id'] : Image name, t['bbox'] : bounding box 좌표
                         f = open(filename, 'a')
-                        
-                        # yolov5 annotation 형식에 맞추어 재설정
                         data = str(t['id']) + ' ,' + bbox_str + '\n'
                         data = data.replace(',', "")
                         f.write(data)
