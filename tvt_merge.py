@@ -72,6 +72,7 @@ def main():
     coco_merge(val_json, dest, 'val')
     coco_merge(test_json, dest, 'test')
 
+    # 원하는 이미지 리스트 넣기
     data_pick = ['a.jpg', 'b.jpg']
 
     print('--image split--')
