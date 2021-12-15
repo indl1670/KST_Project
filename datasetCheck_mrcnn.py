@@ -13,6 +13,7 @@ def main():
 
     cnt = 0
     no_match = []
+    # 우리가 원하는 이미지
     data_pick = []
 
     for j in data_pick:
