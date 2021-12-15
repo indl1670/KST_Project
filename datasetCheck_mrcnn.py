@@ -13,11 +13,10 @@ def main():
 
     cnt = 0
     no_match = []
+    data_pick = []
 
-    for j in json_list:
-        # json 파일의 이름을 image 형식으로
-        j2i = j[:-4] + 'jpg'
-        if j2i in image_list:
+    for j in data_pick:
+        if j in image_list:
             # image가 image_dir에 있으면 bboximage 폴더로 이동
             cnt += 1
         else:
